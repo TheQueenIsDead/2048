@@ -1,27 +1,55 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
 public class Main extends Application {
+
+    private static Game mygame;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
-        //primaryStage.show();
+        primaryStage.show();
+
+        primaryStage.getScene().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ESCAPE:
+                    break;
+                case SPACE:
+                    break;
+                case LEFT:
+                    mygame.shift(Move.left);
+                    break;
+                case UP:
+                    mygame.shift(Move.up);
+                    break;
+                case RIGHT:
+                    mygame.shift(Move.right);
+                    break;
+                case DOWN:
+                    mygame.shift(Move.down);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
 
     public static void main(String[] args) {
         // Yos
-        Game mygame = new Game();
+        mygame = new Game();
 
         // 4x4
         mygame.printGame();
@@ -50,31 +78,12 @@ public class Main extends Application {
 
         System.out.println(mysquares.findFree());
 
-        // Read all ws separated strings from stdin
-        Scanner sc = new Scanner(System.in);
-        while(sc.hasNext()) {
-            //System.out.println(sc.next());
-            switch(sc.next()){
-                case "left":
-                    mygame.shift(Move.left);
-                    break;
-                case "right":
-                    mygame.shift(Move.right);
-                    break;
-                case "up":
-                    mygame.shift(Move.up);
-                    break;
-                case "down":
-                    mygame.shift(Move.down);
-                    break;
-                default:
-                    System.out.println("Unknown");
-            }
 
-            mygame.dropNew();
-            mygame.printGame();
-        }
+//            mygame.dropNew();
+//            mygame.printGame();
+//        }
 
-        //launch(args);
+
+        launch(args);
     }
 }
