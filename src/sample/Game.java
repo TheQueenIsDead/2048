@@ -2,6 +2,7 @@ package sample;
 
 import javafx.util.Pair;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,6 +32,19 @@ public class Game {
             System.out.println(al);
         }
         System.out.println("#----------#");
+    }
+
+    public void printGameCoords() {
+        System.out.println("#----------#");
+
+        for (int r=0; r < board.size(); r++) {
+            String row = "";
+            for (int c=0; c < board.get(r).size(); c++) {
+                row = row + " | " + (r + "," + c);
+            }
+        }
+        System.out.println("#----------#");
+
     }
 
     public void shift(Move direction){
@@ -226,8 +240,8 @@ public class Game {
             }
         } catch (Exception e) {
             // If the coords exceed an array / go off the map
-            System.out.println("Tried to move pieces off of the board: " + e + "(" + position + ", " + direction + ")");
-            System.out.println(position + " " + direction);
+            //System.out.println("Tried to move pieces off of the board: " + e + "(" + position + ", " + direction + ")");
+            //System.out.println(position + " " + direction);
             return false;
         }
         // Needs for syntax?
@@ -261,5 +275,9 @@ public class Game {
         int targetRow = choices.get(random).getKey();
         int targetColumn = choices.get(random).getValue();
         board.get(targetRow).set(targetColumn, valueToDrop);
+    }
+
+    public ArrayList<ArrayList<Integer>> getBoard() {
+        return board;
     }
 }

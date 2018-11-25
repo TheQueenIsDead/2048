@@ -23,6 +23,7 @@ public class Main extends Application {
         primaryStage.show();
 
         primaryStage.getScene().setOnKeyPressed(event -> {
+            System.out.println(event.getCode());
             switch (event.getCode()) {
                 case ESCAPE:
                     break;
@@ -43,6 +44,10 @@ public class Main extends Application {
                 default:
                     break;
             }
+//            Controller.update(mygame.getBoard());
+            mygame.dropNew();
+            Controller.update(mygame.getBoard());
+            mygame.printGame();
         });
     }
 
@@ -50,39 +55,34 @@ public class Main extends Application {
     public static void main(String[] args) {
         // Yos
         mygame = new Game();
+        mygame.printGameCoords();
 
-        // 4x4
-        mygame.printGame();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.dropNew();
-        mygame.printGame();
-
-        System.out.println("### SHIFT LEFT ###");
-
-        mygame.shift(Move.left);
-
-        mygame.printGame();
-
-        System.out.println("### SHIFT RIGHT ###");
-        mygame.shift(Move.right);
-
-        mygame.printGame();
-
-        Squares mysquares = new Squares();
-
-        System.out.println(mysquares.findFree());
-
-
-//            mygame.dropNew();
-//            mygame.printGame();
-//        }
-
+//        // 4x4
+//        mygame.printGame();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.dropNew();
+//        mygame.printGame();
+//
+//        System.out.println("### SHIFT LEFT ###");
+//
+//        mygame.shift(Move.left);
+//
+//        mygame.printGame();
+//
+//        System.out.println("### SHIFT RIGHT ###");
+//        mygame.shift(Move.right);
+//
+//        mygame.printGame();
+//
+//        Squares mysquares = new Squares();
+//
+//        System.out.println(mysquares.findFree());
 
         launch(args);
     }
