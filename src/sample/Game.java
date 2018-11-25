@@ -40,6 +40,7 @@ class Game {
             for (int c=0; c < board.get(r).size(); c++) {
                 row.append(" | ").append(r).append(",").append(c);
             }
+            System.out.println(row);
         }
         System.out.println("#----------#");
 
