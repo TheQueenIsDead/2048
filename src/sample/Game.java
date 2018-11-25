@@ -2,23 +2,21 @@ package sample;
 
 import javafx.util.Pair;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class Game {
+class Game {
 
     private ArrayList<ArrayList<Integer>> board;
     private Integer rows = 4;
     private Integer columns = 4;
 
-    public Game() {
+    Game() {
 
         // Populate the board values
         board = new ArrayList<>();
 
         for (int r=0; r < rows; r++) {
-            ArrayList row = new ArrayList();
+            ArrayList<Integer> row = new ArrayList<>();
             for (int c=0; c < columns; c++) {
                 row.add(-1);
             }
@@ -26,28 +24,28 @@ public class Game {
         }
     }
 
-    public void printGame() {
+    void printGame() {
         System.out.println("#----------#");
-        for (ArrayList al: board) {
+        for (ArrayList<Integer> al: board) {
             System.out.println(al);
         }
         System.out.println("#----------#");
     }
 
-    public void printGameCoords() {
+    void printGameCoords() {
         System.out.println("#----------#");
 
         for (int r=0; r < board.size(); r++) {
-            String row = "";
+            StringBuilder row = new StringBuilder();
             for (int c=0; c < board.get(r).size(); c++) {
-                row = row + " | " + (r + "," + c);
+                row.append(" | ").append(r).append(",").append(c);
             }
         }
         System.out.println("#----------#");
 
     }
 
-    public void shift(Move direction){
+    void shift(Move direction){
         switch (direction) {
             case left:
                 shiftLeft();
@@ -74,7 +72,7 @@ public class Game {
 
                 // If theres a square on the board
                 if (board.get(r).get(c) != -1) {
-                    while (isClear(new Pair(r, c), Move.up) && board.get(r).get(c) != -1) {
+                    while (isClear(new Pair<>(r, c), Move.up) && board.get(r).get(c) != -1) {
 
                         Integer value = board.get(r).get(c);
 
@@ -83,15 +81,14 @@ public class Game {
                             board.get(r - 1).set(c, value); // Move it up
                             r = r - 1;
                         } catch (ArrayIndexOutOfBoundsException e){
-                            // If we cant move it out of the board
-                            continue;
+                            // If we cant move it out of the board then pass
                         }
                     }
 
                     // After the move
                     // If we find a match
                     if (r != 0){
-                        if (board.get(r).get(c) == board.get(r - 1).get(c)) {
+                        if (board.get(r).get(c).equals(board.get(r - 1).get(c))) {
 
                             Integer value = board.get(r).get(c);
 
@@ -108,13 +105,13 @@ public class Game {
         //Starting from the bottom of the board (Last array)), shift the boiz downwards
 
         // For all spaces on the board
-        for (Integer r=rows-1; r >= 0; r--) {
+        for (int r = rows-1; r >= 0; r--) {
             for (Integer c=0; c < columns; c++) {
                 //System.out.println("Pos: " + r + ", " + c + ": " + board.get(r).get(c));
 
                 // If theres a square on the board
                 if (board.get(r).get(c) != -1) {
-                    while (isClear(new Pair(r, c), Move.down) && board.get(r).get(c) != -1) {
+                    while (isClear(new Pair<>(r, c), Move.down) && board.get(r).get(c) != -1) {
 
                         Integer value = board.get(r).get(c);
 
@@ -123,15 +120,14 @@ public class Game {
                             board.get(r + 1).set(c, value); // Move it up
                             r = r + 1;
                         } catch (ArrayIndexOutOfBoundsException e){
-                            // If we cant move it out of the board
-                            continue;
+                            // If we cant move it out of the board then continue
                         }
                     }
 
                     // After the move
                     // If we find a match
                     if (r != rows - 1){
-                        if (board.get(r).get(c) == board.get(r + 1).get(c)) {
+                        if (board.get(r).get(c).equals(board.get(r + 1).get(c))) {
 
                             Integer value = board.get(r).get(c);
 
@@ -148,12 +144,12 @@ public class Game {
         //Starting from the rightmost column of the board (Last index of all arrays)), shift the boiz rightwards
         // For all spaces on the board
         for (Integer r=0; r < rows; r++) {
-            for (Integer c=columns - 1; c >= 0; c--) {
+            for (int c = columns - 1; c >= 0; c--) {
                 //System.out.println("Pos: " + r + ", " + c + ": " + board.get(r).get(c));
 
                 // If theres a square on the board
                 if (board.get(r).get(c) != -1) {
-                    while (isClear(new Pair(r, c), Move.right) && board.get(r).get(c) != -1) {
+                    while (isClear(new Pair<>(r, c), Move.right) && board.get(r).get(c) != -1) {
 
                         Integer value = board.get(r).get(c);
 
@@ -162,15 +158,14 @@ public class Game {
                             board.get(r).set(c + 1, value); // Move it up
                             c = c + 1; //Follow
                         } catch (ArrayIndexOutOfBoundsException e){
-                            // If we cant move it out of the board
-                            continue;
+                            // If we cant move it out of the board do nothing
                         }
                     }
 
                     // After the move
                     // If we find a match
                     if (c != columns - 1){
-                        if (board.get(r).get(c) == board.get(r).get(c + 1)) {
+                        if (board.get(r).get(c).equals(board.get(r).get(c + 1))) {
 
                             Integer value = board.get(r).get(c);
 
@@ -192,7 +187,7 @@ public class Game {
 
                 // If theres a square on the board
                 if (board.get(r).get(c) != -1) {
-                    while (isClear(new Pair(r, c), Move.left) && board.get(r).get(c) != -1) {
+                    while (isClear(new Pair<>(r, c), Move.left) && board.get(r).get(c) != -1) {
 
                         Integer value = board.get(r).get(c);
 
@@ -201,15 +196,14 @@ public class Game {
                             board.get(r).set(c - 1, value); // Move it left
                             c = c - 1; // Follow
                         } catch (ArrayIndexOutOfBoundsException e){
-                            // If we cant move it out of the board
-                            continue;
+                            // If we cant move it out of the board then continue
                         }
                     }
 
                     // After the move
                     // If we find a match
                     if (c != 0){
-                        if (board.get(r).get(c) == board.get(r).get(c - 1)) {
+                        if (board.get(r).get(c).equals(board.get(r).get(c - 1))) {
 
                             Integer value = board.get(r).get(c);
 
@@ -248,7 +242,7 @@ public class Game {
         return false;
     }
 
-    public void dropNew() {
+    void dropNew() {
 
         // Always drop a 2
         Integer valueToDrop = 2;
@@ -260,7 +254,7 @@ public class Game {
             for (Integer c=0; c < columns; c++) {
                 //System.out.println("Pos: " + r + ", " + c + ": " + board.get(r).get(c));
                 if (board.get(r).get(c) == -1) {
-                    choices.add(new Pair(r, c));
+                    choices.add(new Pair<>(r, c));
                 }
             }
         }
@@ -277,7 +271,7 @@ public class Game {
         board.get(targetRow).set(targetColumn, valueToDrop);
     }
 
-    public ArrayList<ArrayList<Integer>> getBoard() {
+    ArrayList<ArrayList<Integer>> getBoard() {
         return board;
     }
 }

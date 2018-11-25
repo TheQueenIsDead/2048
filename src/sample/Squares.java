@@ -28,9 +28,9 @@ public class Squares {
         squares.add(newSquare);
     }
 
-    public ArrayList findFree(){
+    public ArrayList<String> findFree(){
 
-        ArrayList places = new ArrayList();
+        ArrayList<String> places = new ArrayList<>();
 
         for (int r=0; r < rows; r++) {
             for (int c=0; c < columns; c++) {
